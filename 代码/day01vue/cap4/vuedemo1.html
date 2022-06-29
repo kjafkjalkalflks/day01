@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>vue中的事件</title>
+</head>
+<body>
+
+    <div id="app">
+        {{count>10?'大于10':'不大于10'}}<br/>
+        {{count}}<br/>
+        <button type="button" @click="addbtnfn(2)" >增加</button>
+        <button type="button" @click="relsbtnfn(2)" >减少</button>
+
+        <input type="text" v-model="mystep">
+
+        <p v-on:mousemove="mymo">
+           今天是周一.!!!
+            {{x}}<br/>
+            {{y}}
+
+            <span @mousemove.stop>停止鼠标移动的事件</span>
+
+
+        </p>
+        <p>你移动了{{z}}次</p><br/> <button type="button" @click="clear()" >重置</button>
+
+    </div>
+
+
+</body>
+
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+
+<script>
+
+  new Vue({
+      el:'#app',
+      data:{
+          count:0,
+          mystep:1,
+          x:0,
+          y:0,
+          z:0
+      },
+      methods:{
+          clear:function (){
+              this.z=0;
+          },
+          addbtnfn:function(){
+
+          //}// var mynumber = (number)this.mystep;
+              this.count+=this.mystep-0;
+            //this.count+=step;
+          },
+          relsbtnfn:function(step){
+              this.count-=step;
+          },
+          mymo:function(event){
+              if(this.x!=event.clientX){
+                  this.z= this.z+1;
+              }else if(this.y!=event.clientY){
+                  this.z= this.z+1;
+              }
+            this.x = event.clientX;
+            this.y = event.clientY;
+
+            console.log(event)
+          },
+          mystopmo:function(event){
+              event.stopPropagation();
+          }
+      }
+
+
+
+
+  });
+
+</script>
+
+
+</html>
